@@ -5,10 +5,17 @@
     <title>Weather</title>
     <script src="./scripts/vendor/jquery-3.3.1.min.js"></script>
     <script src="./scripts/vendor/Chart.min.js"></script>
-    <script src="./scripts/weather.js"></script>
+    <script src="./scripts/grapher.js"></script>
+    <script src="./scripts/weatherLoader.js"></script>
 </head>
 <body>
-    <canvas id="weatherGraph" height="100"></canvas>
-    <canvas id="precipGraph" height="30"></canvas>
+    <canvas id="temperatureGraph" height="100"></canvas>
+    <canvas id="precipitationGraph" height="30"></canvas>
+
+    <script>
+      $(document).ready(function () {
+        WeatherLoader.init();
+      });
+    </script>
 </body>
 </html>
