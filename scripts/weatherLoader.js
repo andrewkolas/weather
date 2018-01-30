@@ -3,8 +3,9 @@ var WeatherLoader = {
   weatherApiRoot: 'https://api.weather.gov/',
 
   init: function(){
-    //TODO, read lat and long from URL, provide a search
-    this.requestWeatherData(38.7852532, -77.2973747) //Burke, VA
+    //TODO provide a search
+    var address = (new URLSearchParams(window.location.search)).get('address');
+    Geocoder.findCoordinates(address || 22015, this.requestWeatherData, this);
   },
 
   /**
