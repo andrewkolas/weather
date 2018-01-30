@@ -60,13 +60,16 @@ var WeatherLoader = {
     var times = [],
         percentages = [];
 
-    $(jsonData.properties.periods).each(function () {
+    $(jsonData.properties.periods).each(function (index) {
 
       var precipString = /Chance of precipitation is \d+%/.exec(this.detailedForecast),
-          precipPercent = precipString ? Number(/\d+/.exec(precipString[0])[0]) : 0;
+          precipPercent = precipString ? Number(/\d+/.exec(precipString[0])[0]) : 0,
+          timeSpan = jsonData.properties.periods[index+1] ?
+                        WeatherLoader._hourDifference(jsonData.properties.periods[index+1].startTime, this.startTime)
+                        : 12;
 
       //Break each 12 hour period into 12 segments, to mimic the scale of the hourly temp graph
-      for (var i=0; i<12; i++){
+      for (var i=0; i<timeSpan; i++){
         times.push(WeatherLoader._addHours(this.startTime, i));
         percentages.push(precipPercent);
       }
@@ -79,5 +82,9 @@ var WeatherLoader = {
     var date = new Date(dateString);
     date.setHours(date.getHours() + hours);
     return date;
+  },
+
+  _hourDifference: function(time1, time2){
+    return (new Date(time1) - new Date(time2))/3600000;
   }
 };
