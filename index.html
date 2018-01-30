@@ -9,7 +9,15 @@
     <script src="./scripts/geocoder.js"></script>
     <script src="./scripts/weatherLoader.js"></script>
 </head>
-<body>
+<body style="font-family: Courier">
+    <h3 style="display: inline">Forecast for <span id="locationName"></span></h3>
+
+    <form method="GET" style="float: right">
+        <span>See someplace else:</span>
+        <input name="address" type="text"/>
+        <button type="submit">Go</button>
+    </form>
+
     <canvas id="temperatureGraph" height="100"></canvas>
     <canvas id="precipitationGraph" height="30"></canvas>
 

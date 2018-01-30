@@ -3,9 +3,14 @@ var WeatherLoader = {
   weatherApiRoot: 'https://api.weather.gov/',
 
   init: function(){
-    //TODO provide a search
     var address = (new URLSearchParams(window.location.search)).get('address');
-    Geocoder.findCoordinates(address || 22015, this.requestWeatherData, this);
+    Geocoder.findCoordinates(
+        address || 22015,
+        function(location){
+          this.requestWeatherData(location.latitude, location.longitude);
+          $('#locationName').text(location.city + ', ' + location.state);
+        },
+        this);
   },
 
   /**
